@@ -12,11 +12,22 @@ interface ChaoticButtonProps {
 }
 
 export function ChaoticButton({ children, onClick, variant, className }: ChaoticButtonProps) {
-    const { stability, glitchIntensity } = useChaos();
+    const { stability, glitchIntensity, zeroGravityActive } = useChaos();
     const [isBroken, setIsBroken] = useState(false);
     const [offset, setOffset] = useState({ x: 0, y: 0 });
+    const [isPixelated, setIsPixelated] = useState(false);
     const buttonRef = useRef<HTMLDivElement>(null);
     const controls = useAnimation();
+
+    // Pixelation effect at high chaos
+    useEffect(() => {
+        if (glitchIntensity > 0.7) {
+            const pixelateInterval = setInterval(() => {
+                setIsPixelated(prev => !prev);
+            }, 500 + Math.random() * 1000);
+            return () => clearInterval(pixelateInterval);
+        }
+    }, [glitchIntensity]);
 
     // "Run away" behavior
     const handleMouseEnter = () => {
@@ -81,7 +92,7 @@ export function ChaoticButton({ children, onClick, variant, className }: Chaotic
             <NeonButton
                 variant={variant}
                 onClick={onClick}
-                className={className}
+                className={`${className} ${isPixelated ? 'pixelate' : ''}`}
             >
                 <motion.span
                     animate={stability < 30 ? {

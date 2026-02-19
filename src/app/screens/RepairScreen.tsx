@@ -335,6 +335,9 @@ function RepairScreenContent() {
               <ChaoticButtonEnhanced onClick={handleReset} variant="pink" className="w-full text-xs font-pixel">
                 PURGE_BUFFERS
               </ChaoticButtonEnhanced>
+              <ChaoticButtonEnhanced onClick={() => navigate("/dashboard")} variant="blue" className="w-full text-xs font-pixel mt-2">
+                RESTART GAME
+              </ChaoticButtonEnhanced>
             </ArcadeCard>
           </div>
 

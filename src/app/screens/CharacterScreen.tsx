@@ -291,9 +291,14 @@ export function CharacterScreen() {
                       </p>
                     </div>
 
-                    <ChaoticButtonEnhanced onClick={() => setSelectedChar(null)} variant="blue" className="w-full">
-                      DISCONNECT
-                    </ChaoticButtonEnhanced>
+                    <div className="flex gap-2">
+                      <ChaoticButtonEnhanced onClick={() => navigate("/repair")} variant="green" className="flex-1">
+                        FIX GLITCH
+                      </ChaoticButtonEnhanced>
+                      <ChaoticButtonEnhanced onClick={() => setSelectedChar(null)} variant="blue" className="flex-1">
+                        DISCONNECT
+                      </ChaoticButtonEnhanced>
+                    </div>
                   </div>
                 </div>
               </ArcadeCard>

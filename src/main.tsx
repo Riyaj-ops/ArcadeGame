@@ -5,5 +5,6 @@ import "./styles/globals.css";
 import "./styles/components.css";
 import "./styles/chaos-animations.css";
 import "./styles/chaos-utilities.css";
+import "./styles/pixelation.css";
 
 createRoot(document.getElementById("root")!).render(<App />);

@@ -1,0 +1,146 @@
+/* Pixelation Effects for Chaotic UI Elements */
+
+.pixelate {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  filter: contrast(1.5) brightness(1.2) saturate(1.3);
+  transform: scale(1.05);
+}
+
+/* Enhanced pixelation for different chaos levels */
+.chaos-level-1 .pixelate {
+  filter: contrast(1.2) brightness(1.1);
+}
+
+.chaos-level-2 .pixelate {
+  filter: contrast(1.4) brightness(1.2) saturate(1.1);
+  transform: scale(1.02);
+}
+
+.chaos-level-3 .pixelate {
+  filter: contrast(1.6) brightness(1.3) saturate(1.2);
+  transform: scale(1.05);
+}
+
+.chaos-level-4 .pixelate {
+  filter: contrast(1.8) brightness(1.4) saturate(1.3);
+  transform: scale(1.08);
+}
+
+.chaos-level-5 .pixelate {
+  filter: contrast(2.0) brightness(1.5) saturate(1.4);
+  transform: scale(1.1);
+}
+
+/* Pixelation animation */
+@keyframes pixelate-flicker {
+  0%, 100% { 
+    filter: contrast(1.5) brightness(1.2); 
+    transform: scale(1);
+  }
+  25% { 
+    filter: contrast(1.8) brightness(1.4); 
+    transform: scale(1.05);
+  }
+  50% { 
+    filter: contrast(2.0) brightness(1.5); 
+    transform: scale(1.1);
+  }
+  75% { 
+    filter: contrast(1.6) brightness(1.3); 
+    transform: scale(1.03);
+  }
+}
+
+.pixelate-flicker {
+  animation: pixelate-flicker 0.5s ease-in-out infinite;
+}
+
+/* Pixel breakup effect */
+@keyframes pixel-breakup {
+  0% { 
+    clip-path: inset(0 0 100% 100%);
+    transform: translate(0, 0);
+  }
+  25% { 
+    clip-path: inset(20% 0 80% 100%);
+    transform: translate(-5px, 2px);
+  }
+  50% { 
+    clip-path: inset(40% 0 60% 100%);
+    transform: translate(5px, -3px);
+  }
+  75% { 
+    clip-path: inset(10% 0 90% 100%);
+    transform: translate(-2px, 4px);
+  }
+  100% { 
+    clip-path: inset(0 0 100% 100%);
+    transform: translate(0, 0);
+  }
+}
+
+.pixel-breakup {
+  animation: pixel-breakup 2s ease-in-out infinite;
+}
+
+/* Glitch pixelation */
+@keyframes glitch-pixelate {
+  0%, 100% { 
+    filter: hue-rotate(0deg) contrast(1.5) brightness(1.2);
+    transform: scale(1) translate(0, 0);
+  }
+  20% { 
+    filter: hue-rotate(90deg) contrast(1.8) brightness(1.4);
+    transform: scale(1.05) translate(2px, -1px);
+  }
+  40% { 
+    filter: hue-rotate(180deg) contrast(1.6) brightness(1.3);
+    transform: scale(1.02) translate(-1px, 2px);
+  }
+  60% { 
+    filter: hue-rotate(270deg) contrast(1.9) brightness(1.5);
+    transform: scale(1.08) translate(1px, -2px);
+  }
+  80% { 
+    filter: hue-rotate(360deg) contrast(1.7) brightness(1.4);
+    transform: scale(1.03) translate(-2px, 1px);
+  }
+}
+
+.glitch-pixelate {
+  animation: glitch-pixelate 3s linear infinite;
+}
+
+/* UI element pixelation */
+.arcade-card.pixelate {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.1) 2px,
+    rgba(255, 255, 255, 0.1) 4px
+  );
+}
+
+.neon-button.pixelate {
+  border-radius: 0 !important;
+  text-shadow: none !important;
+  box-shadow: 
+    2px 2px 0 currentColor,
+    4px 4px 0 currentColor,
+    6px 6px 0 currentColor !important;
+}
+
+/* Pixelated text */
+.pixelate-text {
+  font-family: var(--font-pixel) !important;
+  letter-spacing: 2px;
+  text-shadow: 
+    1px 1px 0 currentColor,
+    2px 2px 0 currentColor,
+    3px 3px 0 currentColor;
+}

@@ -6,6 +6,9 @@ import { ChaoticButtonEnhanced } from "../components/ChaoticButtonEnhanced";
 import { ArcadeCard } from "../components/ArcadeCard";
 import { Gamepad2, Users, Wrench, Activity, Trophy, Lock, Unlock, HelpCircle, Power, ZapOff, Zap } from "lucide-react";
 import { useChaos } from "../components/ChaosContext";
+import { SnakeGame } from "../games/SnakeGame";
+import { GlitchBreaker } from "../games/GlitchBreaker";
+import { ChaosMemory } from "../games/ChaosMemory";
 
 interface Game {
   id: number;
@@ -16,6 +19,7 @@ interface Game {
   riddle?: string;
   answer?: string;
   route: string;
+  component?: React.ReactNode;
 }
 
 const GAMES: Game[] = [
@@ -51,6 +55,33 @@ const GAMES: Game[] = [
     locked: false,
     route: "/leaderboard",
   },
+  {
+    id: 5,
+    name: "Snake Chaos",
+    icon: "🐍",
+    color: "#00ff88",
+    locked: false,
+    route: "/snake",
+    component: <SnakeGame />
+  },
+  {
+    id: 6,
+    name: "Glitch Breaker",
+    icon: "🎮",
+    color: "#ff00ff",
+    locked: false,
+    route: "/breaker",
+    component: <GlitchBreaker />
+  },
+  {
+    id: 7,
+    name: "Chaos Memory",
+    icon: "🧠",
+    color: "#ff8800",
+    locked: false,
+    route: "/memory",
+    component: <ChaosMemory />
+  },
 ];
 
 export function DashboardScreen() {
@@ -60,11 +91,15 @@ export function DashboardScreen() {
   const [riddleGame, setRiddleGame] = useState<Game | null>(null);
   const [riddleAnswer, setRiddleAnswer] = useState("");
   const [localLogout, setLocalLogout] = useState(false);
+  const [activeGame, setActiveGame] = useState<React.ReactNode | null>(null);
 
   const handleGameClick = (game: Game) => {
     if (game.locked) {
       setRiddleGame(game);
       setRiddleAnswer("");
+    } else if (game.component) {
+      // For games with components, show them in modal
+      setActiveGame(game.component);
     } else {
       // Map routes to universes for visual "vibe" shifts
       const universeMap: Record<string, any> = {
