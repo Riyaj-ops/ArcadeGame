@@ -179,10 +179,10 @@ export function GlitchBreaker() {
           return prev;
         });
 
+        setBallVelocity({ x: newVelX, y: newVelY });
+
         return { x: newX, y: newY };
       });
-
-      setBallVelocity({ x: newVelX, y: newVelY });
     }, 50);
 
     return () => clearInterval(gameLoop);
@@ -230,8 +230,8 @@ export function GlitchBreaker() {
       >
         <motion.div
           animate={isGlitching ? {
-            filter: ['hue-rotate(0deg)', 'hue-rotate(180deg)', 'hue-rotate(360deg)'],
-            brightness: [1, 1.5, 1]
+            filter: 'hue-rotate(180deg)',
+            opacity: [1, 0.5, 1]
           } : {}}
           transition={{ duration: 0.5 }}
         >

@@ -33,7 +33,7 @@ export function SnakeGame() {
     isPaused: false
   });
   const [speed, setSpeed] = useState(INITIAL_SPEED);
-  const gameLoopRef = useRef<NodeJS.Timeout>();
+  const gameLoopRef = useRef<NodeJS.Timeout | null>(null);
   const [isGlitched, setIsGlitched] = useState(false);
 
   // Chaos effects on game
@@ -62,16 +62,16 @@ export function SnakeGame() {
     setSpeed(Math.max(50, chaosSpeed));
   }, [glitchIntensity]);
 
-  const generateFood = useCallback((snake: Position[]): Position => {
+  const generateFood = useCallback(() => {
     let newFood: Position;
     do {
       newFood = {
         x: Math.floor(Math.random() * GRID_SIZE),
         y: Math.floor(Math.random() * GRID_SIZE)
       };
-    } while (snake.some(segment => segment.x === newFood.x && segment.y === newFood.y));
+    } while (gameState.snake.some(segment => segment.x === newFood.x && segment.y === newFood.y));
     return newFood;
-  }, []);
+  }, [gameState.snake]);
 
   const moveSnake = useCallback(() => {
     if (gameState.gameOver || gameState.isPaused) return;
@@ -112,7 +112,7 @@ export function SnakeGame() {
         return {
           ...prev,
           snake: newSnake,
-          food: generateFood(newSnake),
+          food: generateFood(),
           score: prev.score + 10
         };
       } else {

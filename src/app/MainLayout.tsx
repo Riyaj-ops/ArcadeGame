@@ -11,6 +11,14 @@ import { PixelDust } from "./components/PixelDust";
 import { SystemMonitor } from "./components/SystemMonitor";
 import { motion, AnimatePresence } from "motion/react";
 
+// NEW FEATURE SYSTEMS
+import { SoundProvider } from "./components/SoundSystem";
+import { AchievementProvider } from "./components/AchievementSystem";
+import { PowerUpProvider, PowerUpDisplay } from "./components/PowerUpSystem";
+import { VisualEffectsProvider } from "./components/VisualEffects";
+import { DailyChallengesProvider } from "./components/DailyChallenges";
+import { GameSaveProvider } from "./components/GameSaveSystem";
+
 // EXTREME CHAOS ENHANCEMENTS
 import { TornadoTransition } from "./components/TornadoTransition";
 import { ZeroGravityButtons } from "./components/ZeroGravityButtons";
@@ -229,6 +237,30 @@ function MainLayoutInner() {
 
             {/* CRT Scanline Persistence */}
             <div className="fixed inset-0 pointer-events-none z-[3000] opacity-[0.02] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
+            
+            {/* New Feature Overlays */}
+            <PowerUpDisplay />
         </div>
+    );
+}
+
+// Wrap the entire app with all providers
+export function AppWithProviders() {
+    return (
+        <GameSaveProvider>
+            <SoundProvider>
+                <AchievementProvider>
+                    <PowerUpProvider>
+                        <VisualEffectsProvider>
+                            <DailyChallengesProvider>
+                                <ChaosProvider>
+                                    <MainLayout />
+                                </ChaosProvider>
+                            </DailyChallengesProvider>
+                        </VisualEffectsProvider>
+                    </PowerUpProvider>
+                </AchievementProvider>
+            </SoundProvider>
+        </GameSaveProvider>
     );
 }

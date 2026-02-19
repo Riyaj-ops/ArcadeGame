@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { GlitchTextEnhanced } from "../components/GlitchTextEnhanced";
 import { ChaoticButtonEnhanced } from "../components/ChaoticButtonEnhanced";
 import { ArcadeCard } from "../components/ArcadeCard";
-import { Gamepad2, Users, Wrench, Activity, Trophy, Lock, Unlock, HelpCircle, Power, ZapOff, Zap } from "lucide-react";
+import { Gamepad2, Users, Wrench, Activity, Trophy, Lock, Unlock, HelpCircle, Power, ZapOff, Zap, Target } from "lucide-react";
 import { useChaos } from "../components/ChaosContext";
 import { SnakeGame } from "../games/SnakeGame";
 import { GlitchBreaker } from "../games/GlitchBreaker";
@@ -195,24 +195,33 @@ export function DashboardScreen() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex justify-center gap-4 mb-8"
         >
-          <ChaoticButtonEnhanced variant="blue" className="flex items-center gap-2">
-            <Gamepad2 className="w-4 h-4" />
-            DASHBOARD
-          </ChaoticButtonEnhanced>
-          <ChaoticButtonEnhanced variant="purple" onClick={() => navigate("/characters")} className="flex items-center gap-2">
-            <Users className="w-4 h-4" />
-            CHARACTERS
-          </ChaoticButtonEnhanced>
-          <ChaoticButtonEnhanced variant="green" onClick={() => navigate("/repair")} className="flex items-center gap-2">
-            <Wrench className="w-4 h-4" />
-            REPAIR
-          </ChaoticButtonEnhanced>
-          <ChaoticButtonEnhanced variant="pink" onClick={() => navigate("/status")} className="flex items-center gap-2">
-            <Activity className="w-4 h-4" />
-            STATUS
-          </ChaoticButtonEnhanced>
+          <motion.div className="flex flex-wrap justify-center gap-4 mb-8">
+            <ChaoticButtonEnhanced variant="blue" className="flex items-center gap-2">
+              <Gamepad2 className="w-4 h-4" />
+              DASHBOARD
+            </ChaoticButtonEnhanced>
+            <ChaoticButtonEnhanced variant="purple" onClick={() => navigate("/characters")} className="flex items-center gap-2">
+              <Users className="w-4 h-4" />
+              CHARACTERS
+            </ChaoticButtonEnhanced>
+            <ChaoticButtonEnhanced variant="green" onClick={() => navigate("/repair")} className="flex items-center gap-2">
+              <Wrench className="w-4 h-4" />
+              REPAIR
+            </ChaoticButtonEnhanced>
+            <ChaoticButtonEnhanced variant="pink" onClick={() => navigate("/status")} className="flex items-center gap-2">
+              <Activity className="w-4 h-4" />
+              STATUS
+            </ChaoticButtonEnhanced>
+            <ChaoticButtonEnhanced variant="yellow" onClick={() => navigate("/achievements")} className="flex items-center gap-2">
+              <Trophy className="w-4 h-4" />
+              ACHIEVEMENTS
+            </ChaoticButtonEnhanced>
+            <ChaoticButtonEnhanced variant="yellow" onClick={() => navigate("/challenges")} className="flex items-center gap-2">
+              <Target className="w-4 h-4" />
+              CHALLENGES
+            </ChaoticButtonEnhanced>
+          </motion.div>
         </motion.div>
 
         {/* Game Grid */}
@@ -388,6 +397,39 @@ export function DashboardScreen() {
                   </ChaoticButtonEnhanced>
                 </div>
               </ArcadeCard>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Game Modal */}
+      <AnimatePresence>
+        {activeGame && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+            onClick={() => setActiveGame(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.8, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-6xl max-h-[90vh] overflow-auto"
+            >
+              <div className="mb-4 flex justify-between items-center">
+                <h2 className="text-2xl font-pixel text-white">ARCADE GAME</h2>
+                <ChaoticButtonEnhanced 
+                  onClick={() => setActiveGame(null)} 
+                  variant="pink" 
+                  className="text-xs"
+                >
+                  CLOSE
+                </ChaoticButtonEnhanced>
+              </div>
+              {activeGame}
             </motion.div>
           </motion.div>
         )}

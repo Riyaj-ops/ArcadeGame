@@ -9,11 +9,13 @@ import { CharacterScreen } from "./screens/CharacterScreen";
 import { RepairScreen } from "./screens/RepairScreen";
 import { StatusScreen } from "./screens/StatusScreen";
 import { LeaderboardScreen } from "./screens/LeaderboardScreen";
-import { MainLayout } from "./MainLayout";
+import { AchievementsScreen } from "./screens/AchievementsScreen";
+import { DailyChallengesScreen } from "./screens/DailyChallengesScreen";
+import { MainLayout, AppWithProviders } from "./MainLayout";
 
 export const router = createBrowserRouter([
   {
-    element: React.createElement(MainLayout),
+    element: React.createElement(AppWithProviders),
     children: [
       {
         path: "/",
@@ -50,6 +52,14 @@ export const router = createBrowserRouter([
       {
         path: "/leaderboard",
         Component: LeaderboardScreen,
+      },
+      {
+        path: "/achievements",
+        Component: AchievementsScreen,
+      },
+      {
+        path: "/challenges",
+        Component: DailyChallengesScreen,
       },
     ]
   }
