@@ -1,0 +1,541 @@
+/* COMPONENT STYLING - CHAOTIC ARCADE MULTIVERSE */
+
+/* Enhanced Glass Cards */
+.arcade-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.arcade-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent, 
+    rgba(0, 229, 255, 0.1), 
+    rgba(255, 46, 209, 0.1),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.arcade-card:hover::before {
+  left: 100%;
+}
+
+.arcade-card:hover {
+  transform: translateY(-5px) rotateX(5deg);
+  box-shadow: 
+    0 20px 60px rgba(0, 229, 255, 0.3),
+    0 0 40px rgba(255, 46, 209, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(0, 229, 255, 0.3);
+}
+
+/* Floating Panels */
+.floating-panel {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 
+    0 16px 64px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  animation: panelFloat 6s ease-in-out infinite;
+  position: relative;
+}
+
+@keyframes panelFloat {
+  0%, 100% { 
+    transform: translateY(0) rotateX(0deg); 
+  }
+  25% { 
+    transform: translateY(-8px) rotateX(2deg); 
+  }
+  50% { 
+    transform: translateY(-4px) rotateX(-1deg); 
+  }
+  75% { 
+    transform: translateY(-12px) rotateX(1deg); 
+  }
+}
+
+/* Neon Buttons Enhanced */
+.neon-button-enhanced {
+  background: linear-gradient(
+    135deg, 
+    var(--electric-blue) 0%, 
+    var(--neon-pink) 50%, 
+    var(--cyber-purple) 100%
+  );
+  border: none;
+  border-radius: 16px;
+  padding: 16px 32px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 
+    0 8px 32px rgba(0, 229, 255, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.neon-button-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.4), 
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.neon-button-enhanced::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(
+    circle, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    transparent 70%
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.4s ease;
+}
+
+.neon-button-enhanced:hover::before {
+  left: 100%;
+}
+
+.neon-button-enhanced:hover::after {
+  width: 100%;
+  height: 100%;
+}
+
+.neon-button-enhanced:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 
+    0 16px 48px rgba(0, 229, 255, 0.6),
+    0 0 60px var(--electric-blue),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: linear-gradient(
+    135deg, 
+    var(--electric-blue) 0%, 
+    var(--neon-pink) 25%,
+    var(--cyber-purple) 50%,
+    var(--arcade-yellow) 75%,
+    var(--electric-blue) 100%
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.neon-button-enhanced:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* Portal Cards */
+.portal-card {
+  width: 220px;
+  height: 220px;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px);
+  border: 2px solid transparent;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.portal-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg, 
+    var(--electric-blue), 
+    var(--neon-pink), 
+    var(--cyber-purple), 
+    var(--arcade-yellow),
+    var(--electric-blue)
+  );
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: portalRotate 4s linear infinite;
+}
+
+.portal-card:hover::before {
+  opacity: 1;
+}
+
+.portal-card:hover {
+  transform: scale(1.1) rotateY(10deg);
+  box-shadow: 
+    0 0 60px var(--electric-blue),
+    0 0 100px var(--neon-pink),
+    inset 0 0 40px rgba(0, 229, 255, 0.2);
+}
+
+.portal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle, 
+    rgba(0, 229, 255, 0.1) 0%, 
+    transparent 70%
+  );
+  border-radius: 50%;
+}
+
+/* Character Cards */
+.character-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.character-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg, 
+    transparent 0%, 
+    rgba(0, 229, 255, 0.05) 50%, 
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.character-card:hover::before {
+  opacity: 1;
+}
+
+.character-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 24px 64px rgba(0, 229, 255, 0.3),
+    0 0 40px rgba(255, 46, 209, 0.2);
+  border-color: rgba(0, 229, 255, 0.3);
+}
+
+/* Status Monitors */
+.status-monitor {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+  font-family: var(--font-console);
+  font-size: 12px;
+  color: var(--glitch-green);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 255, 0.2),
+    inset 0 0 20px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.status-monitor::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg, 
+    transparent, 
+    var(--glitch-green), 
+    transparent
+  );
+  animation: scanline 3s linear infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+
+/* Glitch Overlays */
+.glitch-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glitch-overlay.active {
+  opacity: 1;
+}
+
+.glitch-overlay::before,
+.glitch-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-overlay::before {
+  background: linear-gradient(
+    0deg, 
+    transparent 0%, 
+    rgba(255, 0, 255, 0.1) 50%, 
+    transparent 100%
+  );
+  animation: glitchSlide1 0.5s infinite;
+}
+
+.glitch-overlay::after {
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(0, 255, 255, 0.1) 50%, 
+    transparent 100%
+  );
+  animation: glitchSlide2 0.3s infinite;
+}
+
+@keyframes glitchSlide1 {
+  0%, 100% { transform: translateY(-100%); }
+  50% { transform: translateY(100%); }
+}
+
+@keyframes glitchSlide2 {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+}
+
+/* Power Outage Overlay */
+.power-outage-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center, 
+    rgba(0, 0, 0, 0.9) 0%, 
+    rgba(0, 0, 0, 0.98) 100%
+  );
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.power-outage-overlay.active {
+  opacity: 1;
+}
+
+/* Torch Cursor Effect */
+.torch-cursor {
+  position: fixed;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(
+    circle, 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(255, 255, 255, 0.4) 30%, 
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.torch-cursor.active {
+  opacity: 1;
+}
+
+/* Particle System */
+.particle-system {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--electric-blue);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--electric-blue);
+  animation: particleFloat 10s infinite linear;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) translateX(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(80vh) translateX(10px) scale(1);
+    opacity: 1;
+  }
+  90% {
+    transform: translateY(-20vh) translateX(-10px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-40vh) translateX(0) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Universe Specific Styles */
+.universe-snake .arcade-card {
+  border-color: rgba(57, 255, 20, 0.3);
+  box-shadow: 0 0 30px rgba(57, 255, 20, 0.2);
+}
+
+.universe-puzzle .arcade-card {
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+}
+
+.universe-rhythm .arcade-card {
+  border-color: rgba(255, 46, 209, 0.3);
+  box-shadow: 0 0 30px rgba(255, 46, 209, 0.2);
+}
+
+.universe-space .arcade-card {
+  border-color: rgba(0, 229, 255, 0.3);
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
+}
+
+.universe-racing .arcade-card {
+  border-color: rgba(255, 217, 61, 0.3);
+  box-shadow: 0 0 30px rgba(255, 217, 61, 0.2);
+}
+
+.universe-void .arcade-card {
+  border-color: rgba(255, 0, 0, 0.3);
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .arcade-card {
+    border-radius: 16px;
+    padding: 16px;
+  }
+  
+  .neon-button-enhanced {
+    padding: 12px 24px;
+    font-size: 12px;
+  }
+  
+  .portal-card {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .character-card {
+    padding: 16px;
+  }
+  
+  .floating-panel {
+    padding: 20px;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .portal-card {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .neon-button-enhanced {
+    padding: 10px 20px;
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+  
+  .floating-panel {
+    padding: 16px;
+    border-radius: 16px;
+  }
+}

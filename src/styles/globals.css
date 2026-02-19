@@ -1,0 +1,463 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
+
+/* CSS Variables for Design System */
+:root {
+  /* Base Colors */
+  --deep-space-black: #07070A;
+  --midnight-purple: #140A2E;
+  --dark-navy: #0B0F2A;
+  
+  /* Neon Accents */
+  --electric-blue: #00E5FF;
+  --neon-pink: #FF2ED1;
+  --cyber-purple: #8B5CF6;
+  --glitch-green: #39FF14;
+  --arcade-yellow: #FFD93D;
+  
+  /* Typography */
+  --font-display: 'Orbitron', monospace;
+  --font-ui: 'Inter', sans-serif;
+  --font-console: 'Space Mono', monospace;
+  
+  /* Chaos Intensity */
+  --chaos-level: 0;
+  --glitch-intensity: 0;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-ui);
+  background: var(--deep-space-black);
+  color: white;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom Cursor */
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--electric-blue);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transition: transform 0.1s ease;
+  mix-blend-mode: screen;
+  box-shadow: 0 0 20px var(--electric-blue);
+}
+
+.custom-cursor.glow {
+  box-shadow: 0 0 30px var(--electric-blue), 0 0 60px var(--electric-blue);
+}
+
+.custom-cursor.glitch {
+  animation: cursorGlitch 0.3s infinite;
+}
+
+.custom-cursor.torch {
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+  border: none;
+}
+
+@keyframes cursorGlitch {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(2px, -2px); }
+  60% { transform: translate(-2px, -2px); }
+  80% { transform: translate(2px, 2px); }
+}
+
+/* Typography Effects */
+.glitch-text {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  text-shadow: 
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 30px currentColor;
+  animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  animation: glitch1 0.5s infinite;
+  color: var(--neon-pink);
+  z-index: -1;
+}
+
+.glitch-text::after {
+  animation: glitch2 0.5s infinite;
+  color: var(--cyber-purple);
+  z-index: -2;
+}
+
+@keyframes textGlow {
+  from { 
+    text-shadow: 
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      0 0 30px currentColor; 
+  }
+  to { 
+    text-shadow: 
+      0 0 20px currentColor,
+      0 0 30px currentColor,
+      0 0 40px currentColor; 
+  }
+}
+
+@keyframes glitch1 {
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  20% { clip-path: inset(20% 0 30% 0); transform: translate(-2px, 2px); }
+  40% { clip-path: inset(50% 0 20% 0); transform: translate(2px, -2px); }
+  60% { clip-path: inset(10% 0 60% 0); transform: translate(-2px, -2px); }
+  80% { clip-path: inset(70% 0 10% 0); transform: translate(2px, 2px); }
+}
+
+@keyframes glitch2 {
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -2px); }
+  40% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, 2px); }
+  60% { clip-path: inset(30% 0 40% 0); transform: translate(2px, 2px); }
+  80% { clip-path: inset(10% 0 70% 0); transform: translate(-2px, -2px); }
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.glass-card:hover::before {
+  left: 100%;
+}
+
+/* Neon Buttons */
+.neon-button {
+  background: linear-gradient(135deg, var(--electric-blue), var(--neon-pink));
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 4px 20px rgba(0, 229, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.neon-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.neon-button:hover::before {
+  left: 100%;
+}
+
+.neon-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 30px rgba(0, 229, 255, 0.5),
+    0 0 30px var(--electric-blue),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.neon-button:active {
+  transform: translateY(0);
+}
+
+/* Portal Styles */
+.portal {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.2) 0%, transparent 70%);
+  border: 2px solid var(--electric-blue);
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: portalFloat 4s ease-in-out infinite;
+}
+
+.portal::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--electric-blue), var(--neon-pink), var(--arcade-yellow), var(--electric-blue));
+  border-radius: 50%;
+  z-index: -1;
+  animation: portalRotate 3s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.portal:hover::before {
+  opacity: 1;
+}
+
+.portal:hover {
+  transform: scale(1.1);
+  box-shadow: 
+    0 0 30px var(--electric-blue),
+    0 0 60px var(--electric-blue);
+}
+
+@keyframes portalFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes portalRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Chaos Effects */
+.chaos-mode {
+  animation: chaosShake 0.1s infinite;
+}
+
+@keyframes chaosShake {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(2px, -2px); }
+  50% { transform: translate(-2px, 2px); }
+  75% { transform: translate(2px, 2px); }
+}
+
+.pixel-distortion {
+  animation: pixelGlitch 0.2s infinite;
+}
+
+@keyframes pixelGlitch {
+  0%, 100% { filter: none; }
+  50% { filter: contrast(200%) brightness(150%); }
+}
+
+.chromatic-aberration {
+  animation: chromatic 0.3s infinite;
+}
+
+@keyframes chromatic {
+  0%, 100% { filter: none; }
+  25% { filter: hue-rotate(90deg); }
+  50% { filter: hue-rotate(180deg); }
+  75% { filter: hue-rotate(270deg); }
+}
+
+/* Power Outage */
+.power-outage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.power-outage.active {
+  opacity: 1;
+}
+
+/* Background Layers */
+.cosmic-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse at 20% 30%, var(--midnight-purple) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, var(--dark-navy) 0%, transparent 50%),
+    linear-gradient(180deg, var(--deep-space-black) 0%, var(--midnight-purple) 100%);
+  z-index: -3;
+}
+
+.floating-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--electric-blue);
+  border-radius: 50%;
+  animation: float 20s infinite linear;
+}
+
+@keyframes float {
+  from {
+    transform: translateY(100vh) translateX(0);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  to {
+    transform: translateY(-100vh) translateX(100px);
+    opacity: 0;
+  }
+}
+
+/* Universe Color Themes */
+.universe-snake {
+  --primary-color: var(--glitch-green);
+  --secondary-color: #00ff00;
+  --bg-gradient: linear-gradient(135deg, #001100, #003300);
+}
+
+.universe-puzzle {
+  --primary-color: var(--cyber-purple);
+  --secondary-color: #9945ff;
+  --bg-gradient: linear-gradient(135deg, #1a0033, #330066);
+}
+
+.universe-rhythm {
+  --primary-color: var(--neon-pink);
+  --secondary-color: #ff66cc;
+  --bg-gradient: linear-gradient(135deg, #330022, #660044);
+}
+
+.universe-space {
+  --primary-color: var(--electric-blue);
+  --secondary-color: #66ccff;
+  --bg-gradient: linear-gradient(135deg, #001133, #002266);
+}
+
+.universe-racing {
+  --primary-color: var(--arcade-yellow);
+  --secondary-color: #ffcc33;
+  --bg-gradient: linear-gradient(135deg, #332200, #664400);
+}
+
+.universe-void {
+  --primary-color: #ff0000;
+  --secondary-color: #ff6666;
+  --bg-gradient: linear-gradient(135deg, #330000, #660000);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .glitch-text {
+    font-size: 1.5rem;
+  }
+  
+  .portal {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .neon-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Utility Classes */
+.text-glow {
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+}
+
+.border-neon {
+  border: 1px solid var(--electric-blue);
+  box-shadow: 0 0 10px var(--electric-blue);
+}
+
+.bg-glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--deep-space-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--electric-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-pink);
+}

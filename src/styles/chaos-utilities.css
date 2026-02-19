@@ -1,0 +1,467 @@
+/* CHAOS UTILITY CLASSES - DYNAMIC VISUAL EFFECTS */
+
+/* Chaos Intensity Modifiers */
+.chaos-level-0 { --chaos-level: 0; --glitch-intensity: 0; }
+.chaos-level-1 { --chaos-level: 0.1; --glitch-intensity: 0.05; }
+.chaos-level-2 { --chaos-level: 0.2; --glitch-intensity: 0.1; }
+.chaos-level-3 { --chaos-level: 0.3; --glitch-intensity: 0.15; }
+.chaos-level-4 { --chaos-level: 0.4; --glitch-intensity: 0.2; }
+.chaos-level-5 { --chaos-level: 0.5; --glitch-intensity: 0.25; }
+.chaos-level-6 { --chaos-level: 0.6; --glitch-intensity: 0.3; }
+.chaos-level-7 { --chaos-level: 0.7; --glitch-intensity: 0.35; }
+.chaos-level-8 { --chaos-level: 0.8; --glitch-intensity: 0.4; }
+.chaos-level-9 { --chaos-level: 0.9; --glitch-intensity: 0.45; }
+.chaos-level-10 { --chaos-level: 1; --glitch-intensity: 0.5; }
+
+/* Dynamic Chaos Effects */
+.chaos-dynamic {
+  animation: 
+    chaosShake calc(0.1s / (var(--chaos-level) + 0.1)) infinite,
+    screenFlicker calc(3s / (var(--chaos-level) + 0.1)) infinite,
+    chaosPulse calc(2s / (var(--chaos-level) + 0.1)) infinite,
+    realityWarp calc(4s / (var(--chaos-level) + 0.1)) infinite;
+  filter: 
+    hue-rotate(calc(var(--chaos-level) * 360deg))
+    saturate(calc(1 + var(--chaos-level)))
+    contrast(calc(1 + var(--chaos-level) * 0.5))
+    brightness(calc(1 + var(--chaos-level) * 0.3));
+}
+
+/* Glitch Overlays */
+.glitch-overlay-dynamic {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  mix-blend-mode: screen;
+  opacity: var(--glitch-intensity);
+}
+
+.glitch-overlay-dynamic::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    0deg, 
+    transparent 0%, 
+    rgba(255, 0, 255, calc(var(--glitch-intensity) * 0.3)) 50%, 
+    transparent 100%
+  );
+  animation: glitchSlide1 calc(0.5s / (var(--glitch-intensity) + 0.1)) infinite;
+}
+
+.glitch-overlay-dynamic::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(0, 255, 255, calc(var(--glitch-intensity) * 0.3)) 50%, 
+    transparent 100%
+  );
+  animation: glitchSlide2 calc(0.3s / (var(--glitch-intensity) + 0.1)) infinite;
+}
+
+/* Particle Effects */
+.particle-chaos {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.particle-chaos::before,
+.particle-chaos::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--electric-blue);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--electric-blue);
+  animation: particleChaos calc(15s / (var(--chaos-level) + 0.1)) infinite linear;
+}
+
+.particle-chaos::after {
+  background: var(--neon-pink);
+  box-shadow: 0 0 10px var(--neon-pink);
+  animation-delay: calc(7.5s / (var(--chaos-level) + 0.1));
+}
+
+@keyframes particleChaos {
+  0% {
+    transform: translateY(100vh) translateX(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(80vh) translateX(20px) scale(1);
+    opacity: 1;
+  }
+  90% {
+    transform: translateY(-20vh) translateX(-20px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-40vh) translateX(0) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Light Effects */
+.light-chaos {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  opacity: var(--chaos-level);
+}
+
+.light-chaos::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center, 
+    transparent 0%, 
+    rgba(0, 229, 255, calc(var(--chaos-level) * 0.1)) 30%, 
+    rgba(255, 46, 209, calc(var(--chaos-level) * 0.05)) 60%, 
+    transparent 100%
+  );
+  transform: translate(-50%, -50%);
+  animation: lightRotate calc(10s / (var(--chaos-level) + 0.1)) infinite linear;
+}
+
+@keyframes lightRotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Text Chaos */
+.text-chaos {
+  position: relative;
+  animation: textChaos calc(0.2s / (var(--chaos-level) + 0.1)) infinite;
+}
+
+.text-chaos::before,
+.text-chaos::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.text-chaos::before {
+  color: var(--neon-pink);
+  animation: textChaosLayer1 calc(0.15s / (var(--chaos-level) + 0.1)) infinite;
+  z-index: -1;
+}
+
+.text-chaos::after {
+  color: var(--cyber-purple);
+  animation: textChaosLayer2 calc(0.18s / (var(--chaos-level) + 0.1)) infinite;
+  z-index: -2;
+}
+
+@keyframes textChaos {
+  0%, 100% { transform: translate(0); }
+  25% { transform: translate(calc(var(--chaos-level) * -5px), calc(var(--chaos-level) * 5px)); }
+  50% { transform: translate(calc(var(--chaos-level) * 5px), calc(var(--chaos-level) * -5px)); }
+  75% { transform: translate(calc(var(--chaos-level) * -3px), calc(var(--chaos-level) * 3px)); }
+}
+
+@keyframes textChaosLayer1 {
+  0%, 100% { transform: translate(0); opacity: calc(var(--glitch-intensity) * 0.5); }
+  25% { transform: translate(calc(var(--glitch-intensity) * -10px), calc(var(--glitch-intensity) * 10px)); opacity: calc(var(--glitch-intensity) * 0.8); }
+  50% { transform: translate(calc(var(--glitch-intensity) * 10px), calc(var(--glitch-intensity) * -10px)); opacity: calc(var(--glitch-intensity) * 0.6); }
+  75% { transform: translate(calc(var(--glitch-intensity) * -5px), calc(var(--glitch-intensity) * 5px)); opacity: calc(var(--glitch-intensity) * 0.9); }
+}
+
+@keyframes textChaosLayer2 {
+  0%, 100% { transform: translate(0); opacity: calc(var(--glitch-intensity) * 0.4); }
+  25% { transform: translate(calc(var(--glitch-intensity) * 8px), calc(var(--glitch-intensity) * -8px)); opacity: calc(var(--glitch-intensity) * 0.7); }
+  50% { transform: translate(calc(var(--glitch-intensity) * -8px), calc(var(--glitch-intensity) * 8px)); opacity: calc(var(--glitch-intensity) * 0.5); }
+  75% { transform: translate(calc(var(--glitch-intensity) * 6px), calc(var(--glitch-intensity) * -6px)); opacity: calc(var(--glitch-intensity) * 0.8); }
+}
+
+/* Border Chaos */
+.border-chaos {
+  border: 1px solid;
+  border-color: var(--electric-blue);
+  position: relative;
+  overflow: hidden;
+}
+
+.border-chaos::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg, 
+    var(--electric-blue), 
+    var(--neon-pink), 
+    var(--cyber-purple), 
+    var(--arcade-yellow),
+    var(--electric-blue)
+  );
+  z-index: -1;
+  animation: borderChaos calc(2s / (var(--chaos-level) + 0.1)) linear infinite;
+  opacity: calc(0.5 + var(--chaos-level) * 0.5);
+}
+
+@keyframes borderChaos {
+  from { transform: rotate(0deg) scale(1); }
+  to { transform: rotate(360deg) scale(calc(1 + var(--chaos-level) * 0.2)); }
+}
+
+/* Background Chaos */
+.bg-chaos {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -4;
+  background: 
+    radial-gradient(ellipse at 20% 30%, var(--midnight-purple) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, var(--dark-navy) 0%, transparent 50%),
+    linear-gradient(180deg, var(--deep-space-black) 0%, var(--midnight-purple) 100%);
+  animation: bgChaos calc(20s / (var(--chaos-level) + 0.1)) infinite alternate;
+}
+
+@keyframes bgChaos {
+  0% { 
+    filter: hue-rotate(0deg) brightness(1); 
+    background-position: 0% 0%;
+  }
+  50% { 
+    filter: hue-rotate(calc(var(--chaos-level) * 180deg)) brightness(calc(1 + var(--chaos-level) * 0.2)); 
+    background-position: 100% 100%;
+  }
+  100% { 
+    filter: hue-rotate(calc(var(--chaos-level) * 360deg)) brightness(1); 
+    background-position: 0% 0%;
+  }
+}
+
+/* Utility Classes for Quick Application */
+.chaos-text { 
+  position: relative;
+  animation: textChaos calc(0.2s / (var(--chaos-level) + 0.1)) infinite;
+}
+
+.chaos-text::before,
+.chaos-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.chaos-text::before {
+  color: var(--neon-pink);
+  animation: textChaosLayer1 calc(0.15s / (var(--chaos-level) + 0.1)) infinite;
+  z-index: -1;
+}
+
+.chaos-text::after {
+  color: var(--cyber-purple);
+  animation: textChaosLayer2 calc(0.18s / (var(--chaos-level) + 0.1)) infinite;
+  z-index: -2;
+}
+
+.chaos-border { 
+  border: 1px solid;
+  border-color: var(--electric-blue);
+  position: relative;
+  overflow: hidden;
+}
+
+.chaos-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg, 
+    var(--electric-blue), 
+    var(--neon-pink), 
+    var(--cyber-purple), 
+    var(--arcade-yellow),
+    var(--electric-blue)
+  );
+  z-index: -1;
+  animation: borderChaos calc(2s / (var(--chaos-level) + 0.1)) linear infinite;
+  opacity: calc(0.5 + var(--chaos-level) * 0.5);
+}
+
+.chaos-bg { 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -4;
+  background: 
+    radial-gradient(ellipse at 20% 30%, var(--midnight-purple) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, var(--dark-navy) 0%, transparent 50%),
+    linear-gradient(180deg, var(--deep-space-black) 0%, var(--midnight-purple) 100%);
+  animation: bgChaos calc(20s / (var(--chaos-level) + 0.1)) infinite alternate;
+}
+
+.chaos-particles { 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.chaos-particles::before,
+.chaos-particles::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--electric-blue);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--electric-blue);
+  animation: particleChaos calc(15s / (var(--chaos-level) + 0.1)) infinite linear;
+}
+
+.chaos-particles::after {
+  background: var(--neon-pink);
+  box-shadow: 0 0 10px var(--neon-pink);
+  animation-delay: calc(7.5s / (var(--chaos-level) + 0.1));
+}
+
+.chaos-lights { 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  opacity: var(--chaos-level);
+}
+
+.chaos-lights::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center, 
+    transparent 0%, 
+    rgba(0, 229, 255, calc(var(--chaos-level) * 0.1)) 30%, 
+    rgba(255, 46, 209, calc(var(--chaos-level) * 0.05)) 60%, 
+    transparent 100%
+  );
+  transform: translate(-50%, -50%);
+  animation: lightRotate calc(10s / (var(--chaos-level) + 0.1)) infinite linear;
+}
+
+.chaos-overlay { 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  mix-blend-mode: screen;
+  opacity: var(--glitch-intensity);
+}
+
+.chaos-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    0deg, 
+    transparent 0%, 
+    rgba(255, 0, 255, calc(var(--glitch-intensity) * 0.3)) 50%, 
+    transparent 100%
+  );
+  animation: glitchSlide1 calc(0.5s / (var(--glitch-intensity) + 0.1)) infinite;
+}
+
+.chaos-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(0, 255, 255, calc(var(--glitch-intensity) * 0.3)) 50%, 
+    transparent 100%
+  );
+  animation: glitchSlide2 calc(0.3s / (var(--glitch-intensity) + 0.1)) infinite;
+}
+
+/* Responsive Chaos Adjustments */
+@media (max-width: 768px) {
+  .chaos-dynamic {
+    animation-duration: 
+      calc(0.15s / (var(--chaos-level) + 0.1)),
+      calc(4s / (var(--chaos-level) + 0.1)),
+      calc(3s / (var(--chaos-level) + 0.1)),
+      calc(6s / (var(--chaos-level) + 0.1));
+  }
+  
+  .text-chaos {
+    animation-duration: calc(0.3s / (var(--chaos-level) + 0.1));
+  }
+  
+  .border-chaos::before {
+    animation-duration: calc(3s / (var(--chaos-level) + 0.1));
+  }
+}
+
+@media (max-width: 480px) {
+  .chaos-dynamic {
+    animation-duration: 
+      calc(0.2s / (var(--chaos-level) + 0.1)),
+      calc(5s / (var(--chaos-level) + 0.1)),
+      calc(4s / (var(--chaos-level) + 0.1)),
+      calc(8s / (var(--chaos-level) + 0.1));
+  }
+}
